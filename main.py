@@ -9,7 +9,7 @@ class Node:
 
     def __init__(self, value, neighbours):
         self.value = value
-        self.neighbours = neighbour
+        self.neighbours = neighbours
 
     def __repr__(self):
         return f"node: {self.value} -> neighbours: {' '.join([str(neighbour.value) for neighbour in self.neighbours])}"
@@ -62,12 +62,12 @@ class Graph:
             current_node = queue.pop(0)
 
             if current_node == end_node:
-                route = []
+                chain_length = -1
                 while current_node:
-                    route.append(current_node.value)
+                    chain_length += 1
                     current_node = parents[current_node]
 
-                return route[::-1]
+                return chain_length
             else:
                 for node in current_node.neighbours:
                     if node not in visited:
@@ -125,9 +125,8 @@ if __name__ == "__main__":
     if result != None:
         start_node, end_node, graph = result
 
-        route = graph.bfs(start_node, end_node)
-        if route is None:
+        chain_length = graph.bfs(start_node, end_node)
+        if chain_length is None:
             print(f"Users {start_node.value} and {end_node.value} don't have any friends in common")
         else:
-            print(route)
-            print(f"Length of the shortest chain of friends: {len(route) - 1}")
+            print(f"Length of the shortest chain of friends: {chain_length}")
