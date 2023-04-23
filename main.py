@@ -47,7 +47,7 @@ class Graph:
             end (Node): end node
 
         Returns:
-            list: the path between the start node and the end node
+            int: the shortest path's length between the start node and the end node
         """
         
         queue = [start]
